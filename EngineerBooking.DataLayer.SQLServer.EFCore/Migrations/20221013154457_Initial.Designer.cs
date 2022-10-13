@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
 {
     [DbContext(typeof(EngineerBookingDataContext))]
-    [Migration("20221013101712_AddRulesToBooking")]
-    partial class AddRulesToBooking
+    [Migration("20221013154457_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,8 +43,8 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("Date")
-                        .HasColumnType("datetimeoffset");
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("JobCategory")
                         .IsRequired()
@@ -112,7 +112,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
                     b.ToTable("Customers");
                 });
 
-            modelBuilder.Entity("EngineerBooking.DataLayer.SQLServer.EFCore.DataModels.TimeSlotsDataModel", b =>
+            modelBuilder.Entity("EngineerBooking.DataLayer.SQLServer.EFCore.DataModels.TimeSlotDataModel", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -126,11 +126,11 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
                     b.Property<int>("DayOfWeek")
                         .HasColumnType("int");
 
-                    b.Property<TimeSpan>("End")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("EndTime")
+                        .HasColumnType("datetime2");
 
-                    b.Property<TimeSpan>("Start")
-                        .HasColumnType("time");
+                    b.Property<DateTime>("StartTime")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -145,7 +145,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("EngineerBooking.DataLayer.SQLServer.EFCore.DataModels.TimeSlotsDataModel", "TimeSlot")
+                    b.HasOne("EngineerBooking.DataLayer.SQLServer.EFCore.DataModels.TimeSlotDataModel", "TimeSlot")
                         .WithOne()
                         .HasForeignKey("EngineerBooking.DataLayer.SQLServer.EFCore.DataModels.BookingDataModel", "TimeSlotId")
                         .OnDelete(DeleteBehavior.NoAction)

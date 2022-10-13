@@ -7,7 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.2.2" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.2.2" />
+    <PackageReference Include="MediatR" Version="11.0.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EngineerBooking.DataLayer.SQLServer.EFCore\EngineerBooking.DataLayer.SQLServer.EFCore.csproj" />
+    <ProjectReference Include="..\EngineerBooking.DataLayer\EngineerBooking.DataLayer.csproj" />
+    <ProjectReference Include="..\EngineerBooking.Framework\EngineerBooking.Framework.csproj" />
   </ItemGroup>
 
 </Project>

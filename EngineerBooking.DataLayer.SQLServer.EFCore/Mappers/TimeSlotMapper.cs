@@ -13,8 +13,8 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Mappers
       return new TimeSlotDataModel
       {
         Id = source.Id,
-        Start = source.Start,
-        End = source.End,
+        StartTime = source.StartTime,
+        EndTime = source.EndTime,
         DayOfWeek = (int)source.DayOfWeek
       };
     }
@@ -26,8 +26,8 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Mappers
       return new TimeSlot
       {
         Id = source.Id,
-        Start = source.Start,
-        End = source.End,
+        StartTime = source.StartTime,
+        EndTime = source.EndTime,
         DayOfWeek = (Day)source.DayOfWeek
       };
     }

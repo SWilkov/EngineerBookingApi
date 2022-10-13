@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace EngineerBooking.DataLayer.SQLServer.EFCore.DataModels
 {
   public class TimeSlotDataModel : BaseDataModel
   {
     [Required]
-    public TimeSpan Start { get; set; }
+    public TimeSpan StartTime { get; set; }
     [Required]
-    public TimeSpan End { get; set; }
+    public TimeSpan EndTime { get; set; }
     [Required]
     public int DayOfWeek { get; set; }
   }

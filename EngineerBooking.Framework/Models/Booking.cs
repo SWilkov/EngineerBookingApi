@@ -2,7 +2,7 @@
 {
   public class Booking : BaseEntity
   {
-    public DateTimeOffset Date { get; set; }
+    public DateTime Date { get; set; }
     public string VehicleRegistration { get; set; } = default!;
     public string JobCategory { get; set; } = default!;
     public Customer Customer { get; set; } = default!;
