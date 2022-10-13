@@ -4,7 +4,7 @@ using MediatR;
 
 namespace EngineerBookingApi.Queries.Bookings
 {
-  public class AllBookingsHandler : IRequestHandler<AllBookingsRequest, AllBookingsResponse>
+  public sealed class AllBookingsHandler : IRequestHandler<AllBookingsRequest, AllBookingsResponse>
   {
     private readonly IReaderRepository<Booking> _repository;
     public AllBookingsHandler(IReaderRepository<Booking> repository)
