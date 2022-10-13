@@ -3,11 +3,11 @@
 namespace EngineerBooking.DataLayer.SQLServer.EFCore.DataModels
 {
   public class BookingDataModel : BaseDataModel
-  {
-    [Required]
-    public DateTimeOffset Date { get; set; }
+  {    
     [Required]
     public string VehicleRegistration { get; set; }
+    [Required]
+    public DateTime Date { get; set; }
     [Required]
     public string JobCategory { get; set; }
     

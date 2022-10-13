@@ -32,7 +32,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Mappers
         Id = source.Id,
         FirstName = String.IsNullOrWhiteSpace(source.FirstName) ? String.Empty : source.FirstName,
         LastName = String.IsNullOrWhiteSpace(source.LastName) ? String.Empty : source.LastName,
-        Email = String.IsNullOrWhiteSpace(source.Email) ? String.Empty : source.Email,,
+        Email = String.IsNullOrWhiteSpace(source.Email) ? String.Empty : source.Email,
         ContactNumber = String.IsNullOrWhiteSpace(source.ContactNumber) ? String.Empty : source.ContactNumber,
         Address = new Address
         {
@@ -41,7 +41,6 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Mappers
           Postcode = String.IsNullOrWhiteSpace(source.Postcode) ? String.Empty : source.Postcode
         }
       };
-    }
-    }
+    }    
   }
 }
