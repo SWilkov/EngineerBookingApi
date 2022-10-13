@@ -29,8 +29,6 @@ builder.Services.AddScoped<IValidator<Booking>, BookingValidator>();
 builder.Services.AddMediatR(typeof(Program));
 #endregion
 
-
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
