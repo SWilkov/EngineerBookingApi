@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
 {
-  public class BookingReaderRepository : IReaderRepository<Booking>
+  public class BookingReaderRepository : IBookingReaderRepository
   {
     private readonly EngineerBookingDataContext _context;
     private readonly IMapper<Booking, BookingDataModel> _mapper;
@@ -40,5 +40,19 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
 
       return _mapper.Map(dataModel);
     }
+
+    public async Task<Booking> GetByDate(Booking booking)
+    {
+      if (booking is null) throw new ArgumentNullException(nameof(booking));
+
+      //TODO much more comprehensive query needed here to get the correct booking
+      var dataModel = await _context.Bookings        
+        .FirstOrDefaultAsync(b => b.StartDate == booking.StartDate && b.EndDate == booking.EndDate);
+
+      if (dataModel is null) return null;
+
+      return _mapper.Map(dataModel);
+    }
+  
   }
 }

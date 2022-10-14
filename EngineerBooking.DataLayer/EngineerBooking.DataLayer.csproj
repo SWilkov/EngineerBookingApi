@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EngineerBooking.Framework\EngineerBooking.Framework.csproj" />
+  </ItemGroup>
+
 </Project>

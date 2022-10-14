@@ -26,7 +26,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Extensions
       #endregion
 
       #region Repositories
-      services.AddScoped<IReaderRepository<Booking>, BookingReaderRepository>();
+      services.AddScoped<IBookingReaderRepository, BookingReaderRepository>();
       services.AddScoped<ISaveRepository<Booking>, SaveBookingRepository>();
 
       services.AddScoped<IReaderRepository<TimeSlot>, TimeSlotReaderRepository>();
