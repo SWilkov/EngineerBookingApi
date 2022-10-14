@@ -23,7 +23,6 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
     {
       var dataModels = await _context.Bookings
         .Include(b => b.Customer)
-        .Include(b => b.TimeSlot)
         .ToListAsync();
 
       if (dataModels is null) return Enumerable.Empty<Booking>();
@@ -34,8 +33,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
     public async Task<Booking> GetById(int id)
     {
       var dataModel = await _context.Bookings
-        .Include(b => b.Customer)
-        .Include(b => b.TimeSlot)
+        .Include(b => b.Customer)        
         .FirstOrDefaultAsync(b => b.Id == id);
 
       if (dataModel is null) return null;

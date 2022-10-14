@@ -18,19 +18,17 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Data
     {
       modelBuilder.Entity<BookingDataModel>()
         .HasKey(x => x.Id);
+      
       modelBuilder.Entity<BookingDataModel>()
         .HasOne(b => b.Customer)
         .WithMany(c => c.Bookings)
         .HasForeignKey(b => b.CustomerId)
         .OnDelete(DeleteBehavior.Cascade);
-      modelBuilder.Entity<BookingDataModel>()
-        .HasOne(x => x.TimeSlot)
-        .WithOne()
-        .HasForeignKey<BookingDataModel>(x => x.TimeSlotId)
-        .OnDelete(DeleteBehavior.NoAction);
+      
       modelBuilder.Entity<BookingDataModel>()
         .Property(x => x.VehicleRegistration)
         .HasMaxLength(7);
+      
       modelBuilder.Entity<BookingDataModel>()
         .Property(x => x.Comments)
         .HasMaxLength(500);

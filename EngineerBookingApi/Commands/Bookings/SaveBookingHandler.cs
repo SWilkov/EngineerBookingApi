@@ -38,7 +38,7 @@ namespace EngineerBookingApi.Commands.Bookings
       if (saved is null)
       {
         var errorSaving = new SaveBookingResponse(request.Booking, false);
-        errorSaving.Message = $"Error saving booking: {request.Booking.TimeSlot.StartTime} for {request.Booking.Customer?.FirstName} {request.Booking.Customer?.LastName}";
+        errorSaving.Message = $"Error saving booking: {request.Booking.StartDate} for {request.Booking.Customer?.FirstName} {request.Booking.Customer?.LastName}";
         return errorSaving;
       }
 
