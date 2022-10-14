@@ -46,6 +46,14 @@ namespace EngineerBookingApi.Controllers
         return BadRequest(validationResult.Errors);
       }
 
+      //Check if Booking already exists for this date & time
+      var checkRequest = new CheckBookingExistsRequest(booking);
+      var checkResponse = await _mediator.Send(checkRequest);
+      if (checkResponse.Booking is not null && checkResponse.Booking.Id > default(int))
+      {
+        return BadRequest($"Booking already exists @{checkResponse.Booking.StartDate} for {checkResponse.Booking.Customer?.FirstName} {checkResponse.Booking.Customer?.LastName}");
+      }
+
       var request = new SaveBookingRequest(booking);
       var response = await _mediator.Send(request);
 
