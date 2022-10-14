@@ -9,7 +9,7 @@ namespace EngineerBookingApi.Validators
     {
       RuleFor(address => address.Street).NotEmpty();      
       RuleFor(address => address.City).NotEmpty();
-      RuleFor(address => address.Postcode).NotEmpty().MaximumLength(7);
+      RuleFor(address => address.Postcode.Trim()).NotEmpty().MaximumLength(8);
     }
   }
 }

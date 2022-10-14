@@ -22,12 +22,13 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Mappers
       return new BookingDataModel
       {
         Id = source.Id,
-        Date = source.Date,
+        StartDate = source.StartDate,
+        EndDate = source.EndDate,
         VehicleRegistration = String.IsNullOrWhiteSpace(source.VehicleRegistration) ? String.Empty : source.VehicleRegistration,
         Comments = String.IsNullOrWhiteSpace(source.Comments) ? String.Empty : source.Comments,
         CustomerId = source.Customer?.Id ?? 0,
-        JobCategory = String.IsNullOrWhiteSpace(source.JobCategory) ? String.Empty : source.JobCategory,
-        TimeSlotId = source.TimeSlot?.Id ?? 0
+        Customer = _customerMapper.Map(source.Customer),
+        JobCategory = String.IsNullOrWhiteSpace(source.JobCategory) ? String.Empty : source.JobCategory
       };    
     }
 
@@ -38,12 +39,12 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Mappers
       return new Booking
       {
         Id = source.Id,
-        Date = source.Date,
+        StartDate = source.StartDate,
+        EndDate = source.EndDate,
         VehicleRegistration = String.IsNullOrWhiteSpace(source.VehicleRegistration) ? String.Empty : source.VehicleRegistration,
         Comments = String.IsNullOrWhiteSpace(source.Comments) ? String.Empty : source.Comments,
         Customer = source.Customer is null ? throw new NullReferenceException() : _customerMapper.Map(source.Customer),
-        JobCategory = String.IsNullOrWhiteSpace(source.JobCategory) ? String.Empty : source.JobCategory,
-        TimeSlot = source.TimeSlot is null ? throw new NullReferenceException() : _timeSlotMapper.Map(source.TimeSlot)
+        JobCategory = String.IsNullOrWhiteSpace(source.JobCategory) ? String.Empty : source.JobCategory        
       };
     }
   }

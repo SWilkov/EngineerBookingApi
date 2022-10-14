@@ -84,7 +84,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
                 name: "IX_Bookings_TimeSlotId",
                 table: "Bookings",
                 column: "TimeSlotId",
-                unique: true);
+                unique: false);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

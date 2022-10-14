@@ -11,11 +11,14 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
   {
     private readonly EngineerBookingDataContext _context;
     private readonly IMapper<Booking, BookingDataModel> _mapper;
+    private readonly IReaderRepository<Booking> _readerRepository;
     public SaveBookingRepository(EngineerBookingDataContext context,
-      IMapper<Booking, BookingDataModel> mapper)
+      IMapper<Booking, BookingDataModel> mapper,
+      IReaderRepository<Booking> readerRepository)
     {
       _context = context;
       _mapper = mapper;
+      _readerRepository = readerRepository;
     }
 
     public async Task<Booking> Save(Booking booking)
@@ -33,8 +36,8 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
         }
 
         await _context.SaveChangesAsync();
-
-        return _mapper.Map(entity.Entity);
+        var insertedBooking = await _readerRepository.GetById(entity.Entity.Id);
+        return insertedBooking;
       }
       else
       {

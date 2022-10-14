@@ -1,5 +1,6 @@
 ﻿using EngineerBooking.Framework.Models;
 using EngineerBookingApi.Commands.Bookings;
+using EngineerBookingApi.Notifications;
 using EngineerBookingApi.Queries.Bookings;
 using FluentValidation;
 using MediatR;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace EngineerBookingApi.Controllers
 {
-  [Route("api/[controller]")]
+  [Route("api/booking")]
   [ApiController]
   public class BookingController : ControllerBase
   {
@@ -52,6 +53,15 @@ namespace EngineerBookingApi.Controllers
       {
         return NoContent();
       }
+      
+      if (!response.IsSuccess)
+      {        
+        return BadRequest($"Error saving new Booking: {response.Message}");
+      }
+
+      //Success so run any success handlers
+      var successNotification = new SaveBookingSuccessNotification(response.Booking);
+      await _mediator.Publish(successNotification);
 
       return Ok(response.Booking);
     }
