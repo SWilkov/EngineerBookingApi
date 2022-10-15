@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EngineerBooking.Framework.Models;
+using MediatR;
 using System.Xml;
 using System.Xml.Serialization;
 
@@ -12,15 +13,14 @@ namespace EngineerBookingApi.Notifications
       if (notification.Booking is null) throw new ArgumentNullException(nameof(notification.Booking));
 
       //TODO serializer should be injected in the constructor for testing purposes
-      var serializer = new XmlSerializer(notification.Booking.GetType());
+      //TODO This is erroring with an InvalidOpException something to do with teh Types in Booking
+      var serializer = new XmlSerializer(typeof(Booking));
 
       var doc = new XmlDocument();
       using (var writer = doc.CreateNavigator().AppendChild())
       {
         serializer.Serialize(writer, notification.Booking);
-      }
-      //using var textWriter = new StreamWriter($"booking_{notification.Booking.Id}.xml");
-      //serializer.Serialize(textWriter, notification.Booking);
+      }     
     }
   }
 }
