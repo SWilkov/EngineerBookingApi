@@ -27,7 +27,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Data
       
       modelBuilder.Entity<BookingDataModel>()
         .Property(x => x.VehicleRegistration)
-        .HasMaxLength(7);
+        .HasMaxLength(8);
       
       modelBuilder.Entity<BookingDataModel>()
         .Property(x => x.Comments)

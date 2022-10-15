@@ -11,10 +11,10 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
   {
     private readonly EngineerBookingDataContext _context;
     private readonly IMapper<Booking, BookingDataModel> _mapper;
-    private readonly IReaderRepository<Booking> _readerRepository;
+    private readonly IBookingReaderRepository _readerRepository;
     public SaveBookingRepository(EngineerBookingDataContext context,
       IMapper<Booking, BookingDataModel> mapper,
-      IReaderRepository<Booking> readerRepository)
+      IBookingReaderRepository readerRepository)
     {
       _context = context;
       _mapper = mapper;

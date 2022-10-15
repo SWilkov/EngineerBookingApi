@@ -12,7 +12,7 @@ namespace EngineerBookingApi.Queries.Bookings
       _repository = repository;
     }
 
-    public async Task<Booking> Handle(CheckBookingExistsRequest request, CancellationToken cancellationToken)
+    public async Task<CheckBookingExistsResponse> Handle(CheckBookingExistsRequest request, CancellationToken cancellationToken)
     {
       if (request is null) throw new ArgumentNullException(nameof(request));
       if (request.Booking is null) throw new ArgumentNullException(nameof(request.Booking));

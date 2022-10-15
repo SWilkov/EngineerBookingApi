@@ -6,8 +6,8 @@ namespace EngineerBookingApi.Queries.Bookings
 {
   public sealed class AllBookingsHandler : IRequestHandler<AllBookingsRequest, AllBookingsResponse>
   {
-    private readonly IReaderRepository<Booking> _repository;
-    public AllBookingsHandler(IReaderRepository<Booking> repository)
+    private readonly IBookingReaderRepository _repository;
+    public AllBookingsHandler(IBookingReaderRepository repository)
     {
       _repository = repository;
     }
