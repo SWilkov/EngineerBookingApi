@@ -17,6 +17,13 @@ namespace EngineerBookingApi.Commands.Bookings
       _saveRepository = saveRepository;
     }
     
+    /// <summary>
+    /// Save a new Booking to the DB. Validates beforehand
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Response obj with the updated booking</returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task<SaveBookingResponse> Handle(SaveBookingRequest request, CancellationToken cancellationToken)
     {
       if (request is null) throw new ArgumentNullException(nameof(request));

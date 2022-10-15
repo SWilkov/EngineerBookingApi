@@ -11,7 +11,14 @@ namespace EngineerBookingApi.Queries.TimeSlots
     {
       _repository = repository;
     }
-    
+
+    /// <summary>
+    /// Handler to retrieve all the Time slots from database
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns>Response object with Time Slots</returns>
+    /// <exception cref="ArgumentNullException"></exception>
     public async Task<AllTimeSlotsResponse> Handle(AllTimeSlotsRequest request, CancellationToken cancellationToken)
     {
       if (request is null) throw new ArgumentNullException(nameof(request));
@@ -21,6 +28,7 @@ namespace EngineerBookingApi.Queries.TimeSlots
       {
         //No bookings
         //TODO maybe to log somewhere
+        return new AllTimeSlotsResponse(new List<TimeSlot>());
       }
 
       return new AllTimeSlotsResponse(slots.ToList());
