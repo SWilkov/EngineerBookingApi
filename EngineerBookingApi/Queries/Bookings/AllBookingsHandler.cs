@@ -4,6 +4,7 @@ using MediatR;
 
 namespace EngineerBookingApi.Queries.Bookings
 {
+  
   public sealed class AllBookingsHandler : IRequestHandler<AllBookingsRequest, AllBookingsResponse>
   {
     private readonly IBookingReaderRepository _repository;
@@ -11,7 +12,10 @@ namespace EngineerBookingApi.Queries.Bookings
     {
       _repository = repository;
     }
-    
+
+    /// <summary>
+    /// Handler to retrieve all bookings from database
+    /// </summary>
     public async Task<AllBookingsResponse> Handle(AllBookingsRequest request, CancellationToken cancellationToken)
     {
       if (request is null) throw new ArgumentNullException(nameof(request));
@@ -21,6 +25,7 @@ namespace EngineerBookingApi.Queries.Bookings
       {
         //No bookings
         //TODO maybe to log somewhere
+        return new AllBookingsResponse(new List<Booking>());
       }
 
       return new AllBookingsResponse(bookings.ToList());

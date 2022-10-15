@@ -5,6 +5,7 @@ using System.Xml.Serialization;
 
 namespace EngineerBookingApi.Notifications
 {
+  ///Convert Booking to an Xml Doc and save to File  
   public class SaveBookingToXmlHandler : INotificationHandler<SaveBookingSuccessNotification>
   {
     public async Task Handle(SaveBookingSuccessNotification notification, CancellationToken cancellationToken)

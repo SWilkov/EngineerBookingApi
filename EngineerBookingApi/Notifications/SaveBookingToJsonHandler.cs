@@ -3,6 +3,10 @@ using Newtonsoft.Json;
 
 namespace EngineerBookingApi.Notifications
 {
+
+  /// <summary>
+  /// Convert Booking to json and save to File
+  /// </summary>
   public class SaveBookingToJsonHandler : INotificationHandler<SaveBookingSuccessNotification>
   {
     public async Task Handle(SaveBookingSuccessNotification notification, CancellationToken cancellationToken)
