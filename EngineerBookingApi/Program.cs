@@ -3,6 +3,7 @@ using EngineerBookingApi.Validators;
 using FluentValidation;
 using EngineerBooking.DataLayer.SQLServer.EFCore.Extensions;
 using MediatR;
+using EngineerBookingApi.Framework.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +32,7 @@ builder.Services.AddScoped<IValidator<Address>, AddressValidator>();
 builder.Services.AddScoped<IValidator<Customer>, CustomerValidator>();
 builder.Services.AddScoped<IValidator<TimeSlot>, TimeSlotValidator>();
 builder.Services.AddScoped<IValidator<Booking>, BookingValidator>();
+builder.Services.AddScoped<IValidator<BookingParameters>, BookingParametersValidator>();
 #endregion
 
 #region Mediator

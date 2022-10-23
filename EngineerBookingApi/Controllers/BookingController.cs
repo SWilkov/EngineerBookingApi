@@ -1,5 +1,6 @@
 ﻿using EngineerBooking.Framework.Models;
 using EngineerBookingApi.Commands.Bookings;
+using EngineerBookingApi.Framework.Models;
 using EngineerBookingApi.Notifications;
 using EngineerBookingApi.Queries.Bookings;
 using FluentValidation;
@@ -21,9 +22,12 @@ namespace EngineerBookingApi.Controllers
       _validator = validator;
     }
     
-    [HttpGet(Name = "Get All Bookings")]
-    public async Task<IActionResult> GetAllBookings()
+    [HttpGet(Name = "Get Bookings")]
+    public async Task<IActionResult> GetBookings([FromQuery] BookingParameters bookingParameters)
     {
+      if (bookingParameters is not null)
+      { 
+      }
       var request = new AllBookingsRequest();
       var response = await _mediator.Send(request);
 
