@@ -1,5 +1,6 @@
 ﻿using EngineerBooking.Framework.Models;
 using EngineerBookingApi.Commands.Bookings;
+using EngineerBookingApi.Framework.Models;
 using EngineerBookingApi.Notifications;
 using EngineerBookingApi.Queries.Bookings;
 using FluentValidation;
@@ -14,25 +15,43 @@ namespace EngineerBookingApi.Controllers
   {
     private readonly IMediator _mediator;
     private readonly IValidator<Booking> _validator;
+    private readonly IValidator<BookingParameters> _bookingParametersValidator;
     public BookingController(IMediator mediator,
-      IValidator<Booking> validator)
+      IValidator<Booking> validator,
+      IValidator<BookingParameters> bookingParametersValidator)
     {
       _mediator = mediator;
       _validator = validator;
+      _bookingParametersValidator = bookingParametersValidator;
     }
     
-    [HttpGet(Name = "Get All Bookings")]
-    public async Task<IActionResult> GetAllBookings()
+    [HttpGet(Name = "Get Bookings")]
+    public async Task<IActionResult> GetBookings([FromQuery] BookingParameters bookingParameters)
     {
-      var request = new AllBookingsRequest();
-      var response = await _mediator.Send(request);
-
-      if (response is null || response.Bookings is null || !response.Bookings.Any())
+      if (bookingParameters is not null && _bookingParametersValidator.Validate(bookingParameters).IsValid)
       {
-        return NoContent();
-      }
+        var getRequest = new GetBookingsRequest(bookingParameters);
+        var getResponse = await _mediator.Send(getRequest);
 
-      return Ok(response.Bookings);
+        if (getResponse is null || getResponse.Bookings is null || !getResponse.Bookings.Any())
+        {
+          return NoContent();
+        }
+
+        return Ok(getResponse.Bookings);
+      }
+      else
+      {
+        var request = new AllBookingsRequest();
+        var response = await _mediator.Send(request);
+
+        if (response is null || response.Bookings is null || !response.Bookings.Any())
+        {
+          return NoContent();
+        }
+
+        return Ok(response.Bookings);
+      }     
     }
 
     [HttpPost(Name = "Save Booking")]

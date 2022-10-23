@@ -3,6 +3,7 @@ using EngineerBooking.DataLayer.SQLServer.EFCore.Data;
 using EngineerBooking.DataLayer.SQLServer.EFCore.DataModels;
 using EngineerBooking.DataLayer.SQLServer.EFCore.Interfaces;
 using EngineerBooking.Framework.Models;
+using EngineerBookingApi.Framework.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
@@ -23,6 +24,21 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
     {
       var dataModels = await _context.Bookings
         .Include(b => b.Customer)
+        .ToListAsync();
+
+      if (dataModels is null) return Enumerable.Empty<Booking>();
+
+      return dataModels.Select(_mapper.Map);
+    }
+
+    public async Task<IEnumerable<Booking>> Get(BookingParameters bookingParameters)
+    {
+      if (bookingParameters is null) throw new ArgumentNullException(nameof(bookingParameters));
+
+      var dataModels = await _context.Bookings
+        .Include(b => b.Customer)
+        .Skip((bookingParameters.PageNumber - 1) * bookingParameters.BookingsPerPage)
+        .Take(bookingParameters.BookingsPerPage)
         .ToListAsync();
 
       if (dataModels is null) return Enumerable.Empty<Booking>();
