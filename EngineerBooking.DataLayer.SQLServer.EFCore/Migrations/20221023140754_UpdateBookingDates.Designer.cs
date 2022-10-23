@@ -4,6 +4,7 @@ using EngineerBooking.DataLayer.SQLServer.EFCore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EngineerBooking.DataLayer.SQLServer.EFCore.Migrations
 {
     [DbContext(typeof(EngineerBookingDataContext))]
-    partial class EngineerBookingDataContextModelSnapshot : ModelSnapshot
+    [Migration("20221023140754_UpdateBookingDates")]
+    partial class UpdateBookingDates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

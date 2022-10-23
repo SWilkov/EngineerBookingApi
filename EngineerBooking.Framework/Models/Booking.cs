@@ -10,8 +10,8 @@ namespace EngineerBooking.Framework.Models
     {
 
     }
-    public DateTime StartDate { get; set; }
-    public DateTime EndDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
     public string VehicleRegistration { get; set; } = default!;
     public string JobCategory { get; set; } = default!;
     public Customer Customer { get; set; } = default!;    
