@@ -1,6 +1,6 @@
-﻿using EngineerBooking.Framework.Models;
+﻿using EngineerBooking.Framework.Interfaces;
+using EngineerBooking.Framework.Models;
 using MediatR;
-using System.Xml;
 using System.Xml.Serialization;
 
 namespace EngineerBookingApi.Notifications
@@ -8,20 +8,28 @@ namespace EngineerBookingApi.Notifications
   ///Convert Booking to an Xml Doc and save to File  
   public class SaveBookingToXmlHandler : INotificationHandler<SaveBookingSuccessNotification>
   {
+    private readonly IFilePathService _filePathService;
+    public SaveBookingToXmlHandler(IFilePathService filePathService)
+    {
+      _filePathService = filePathService;
+    }
+    
     public async Task Handle(SaveBookingSuccessNotification notification, CancellationToken cancellationToken)
     {
       if (notification is null) throw new ArgumentNullException(nameof(notification));
       if (notification.Booking is null) throw new ArgumentNullException(nameof(notification.Booking));
-
-      //TODO serializer should be injected in the constructor for testing purposes
-      //TODO This is erroring with an InvalidOpException something to do with teh Types in Booking
+            
       var serializer = new XmlSerializer(typeof(Booking));
 
-      var doc = new XmlDocument();
-      using (var writer = doc.CreateNavigator().AppendChild())
+      var path = _filePathService.GetPath(notification.FileLocation, $"booking_{notification.Booking.Id}.xml");
+      if (string.IsNullOrEmpty(path))
       {
-        serializer.Serialize(writer, notification.Booking);
-      }     
+        //TODO log somewhere
+        path = $"booking_{notification.Booking.Id}.xml";
+      }
+              
+      var file = File.Create(path);        
+      serializer.Serialize(file, notification.Booking);     
     }
   }
 }

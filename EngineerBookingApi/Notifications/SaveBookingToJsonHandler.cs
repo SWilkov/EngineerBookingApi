@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using EngineerBooking.Framework.Interfaces;
+using MediatR;
 using Newtonsoft.Json;
 
 namespace EngineerBookingApi.Notifications
@@ -9,6 +10,12 @@ namespace EngineerBookingApi.Notifications
   /// </summary>
   public class SaveBookingToJsonHandler : INotificationHandler<SaveBookingSuccessNotification>
   {
+    private readonly IFilePathService _filePathService;
+    public SaveBookingToJsonHandler(IFilePathService filePathService)
+    {
+      _filePathService = filePathService;
+    }
+    
     public async Task Handle(SaveBookingSuccessNotification notification, CancellationToken cancellationToken)
     {
       if (notification is null) throw new ArgumentNullException(nameof(notification));
@@ -21,8 +28,15 @@ namespace EngineerBookingApi.Notifications
         //TODO log somewhere
         return;
       }
-    
-      await File.WriteAllTextAsync($"booking_{notification.Booking.Id}.json", json);
+
+      var path = _filePathService.GetPath(notification.FileLocation, $"booking_{notification.Booking.Id}.json");
+      if (string.IsNullOrWhiteSpace(path))
+      {
+        //TODO log somewhere
+        path = $"booking_{notification.Booking.Id}.json";
+      }
+
+      await File.WriteAllTextAsync(path, json);
     }  
   }
 }

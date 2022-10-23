@@ -3,6 +3,9 @@ using EngineerBookingApi.Validators;
 using FluentValidation;
 using EngineerBooking.DataLayer.SQLServer.EFCore.Extensions;
 using MediatR;
+using EngineerBooking.Framework.Interfaces;
+using EngineerBooking.Framework.Enums;
+using EngineerBookingApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +38,25 @@ builder.Services.AddScoped<IValidator<Booking>, BookingValidator>();
 
 #region Mediator
 builder.Services.AddMediatR(typeof(Program));
+#endregion
+
+#region Services
+builder.Services.AddSingleton<IFilePathService>(sp =>
+{
+  var dict = new Dictionary<FileLocation, IFilePathService>
+  {
+    {
+      FileLocation.MyDocuments,
+      new MyDocumentsFilePathService()
+    },
+    {
+      FileLocation.ExecutingAssembly,
+      new ExecutingAssemblyFilePathService()
+    }
+  };
+
+  return new FilePathService(dict);
+});
 #endregion
 
 var app = builder.Build();

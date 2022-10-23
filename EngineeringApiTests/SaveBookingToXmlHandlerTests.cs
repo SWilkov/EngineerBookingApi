@@ -1,15 +1,19 @@
-﻿using EngineerBooking.Framework.Models;
+﻿using EngineerBooking.Framework.Interfaces;
+using EngineerBooking.Framework.Models;
 using EngineerBookingApi.Notifications;
 using MediatR;
+using Moq;
 
 namespace EngineeringApiTests
 {
   public class SaveBookingToXmlHandlerTests
   {
     private INotificationHandler<SaveBookingSuccessNotification> _handler;
+    private Mock<IFilePathService> _mockFilePathService;
     public SaveBookingToXmlHandlerTests()
     {
-      _handler = new SaveBookingToXmlHandler();
+      _mockFilePathService = new Mock<IFilePathService>();
+      _handler = new SaveBookingToXmlHandler(_mockFilePathService.Object);
     }
 
     [Fact]
