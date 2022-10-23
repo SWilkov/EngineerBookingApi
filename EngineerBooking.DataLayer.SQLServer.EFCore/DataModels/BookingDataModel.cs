@@ -7,9 +7,9 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.DataModels
     [Required]
     public string VehicleRegistration { get; set; }
     [Required]
-    public DateTime StartDate { get; set; }
+    public DateTimeOffset StartDate { get; set; }
     [Required]
-    public DateTime EndDate { get; set; }
+    public DateTimeOffset EndDate { get; set; }
     [Required]
     public string JobCategory { get; set; }
 
