@@ -16,6 +16,8 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Data
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+      modelBuilder.HasDefaultSchema("engineering");
+      
       modelBuilder.Entity<BookingDataModel>()
         .HasKey(x => x.Id);
       

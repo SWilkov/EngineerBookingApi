@@ -14,6 +14,6 @@ namespace EngineerBooking.Framework.Models
     public string ContactNumber { get; set; } = default!;
     public Address Address { get; set; } = default!;
     [JsonIgnore]
-    public ICollection<Booking> Bookings { get; set; }
+    public List<Booking> Bookings { get; set; } = default!;
   }
 }
