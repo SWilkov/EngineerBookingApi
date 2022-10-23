@@ -23,7 +23,7 @@ namespace EngineerBooking.DataLayer.SQLServer.EFCore.Repositories
     public async Task<IEnumerable<Booking>> All()
     {
       var dataModels = await _context.Bookings
-        .Include(b => b.Customer)
+        .Include(b => b.Customer)        
         .ToListAsync();
 
       if (dataModels is null) return Enumerable.Empty<Booking>();
